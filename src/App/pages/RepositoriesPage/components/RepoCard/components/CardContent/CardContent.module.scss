@@ -1,0 +1,21 @@
+.container{
+    
+    display: flex;
+    width: 100%;
+    flex-direction: row ;
+    justify-content: flex-start;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #7E7E7E
+}
+.stars{
+    display: flex;
+    flex-direction: row ;
+    align-items: center;
+    margin-right: 20px ;
+    p{
+        margin: 0;
+        padding-left: 4px;
+    }
+}
