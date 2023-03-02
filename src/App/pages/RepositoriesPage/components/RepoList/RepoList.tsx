@@ -1,37 +1,40 @@
 import React from "react";
 
-import { useNavigate } from "react-router-dom";
+import { RepoItemModel } from "@store/models/gitHub";
+import { Link } from "react-router-dom";
 
 import styles from "./RepoList.module.scss";
-import type { Repo } from "../../RepositoriesPage";
 import RepoCard from "../RepoCard";
 import CardContent from "../RepoCard/components/CardContent";
 
 type RepoListProps = {
-  repositories: Repo[];
+  repositories: RepoItemModel[];
 };
 
 const RepoList: React.FC<RepoListProps> = ({ repositories }) => {
-  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       {repositories.map((repo) => (
-        <RepoCard
+        <Link
           key={repo.id}
-          image={repo.owner.avatar_url}
-          subtitle={repo.owner.login}
-          title={repo.name}
-          content={
-            <CardContent
-              stars={repo.stargazers_count}
-              updated={repo.updated_at}
-            />
-          }
-          onClick={() => navigate(`/${repo.owner.login}/${repo.name}`)}
-        />
+          to={`/${repo.owner.login}/${repo.name}`}
+          className={styles.link}
+        >
+          <RepoCard
+            image={repo.owner.avatarUrl}
+            subtitle={repo.owner.login}
+            title={repo.name}
+            content={
+              <CardContent
+                stars={repo.stargazersCount}
+                updated={repo.updatedAt}
+              />
+            }
+          />
+        </Link>
       ))}
     </div>
   );
 };
 
-export default RepoList;
+export default React.memo(RepoList);

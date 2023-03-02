@@ -1,25 +1,13 @@
 import React from "react";
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
-import MainLayout from "./layouts/MainLayout";
-import RepoPage from "./pages/RepoPage";
-import RepositoriesPage from "./pages/RepositoriesPage";
+import routes from "@config/routes";
+import { useQueryParamsStoreInit } from "@store/RootStore/hooks/useQueryParamsStoreInit";
+import { useRoutes } from "react-router-dom";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<RepositoriesPage />} />
-          <Route path="/:owner">
-            <Route path=":name" element={<RepoPage />} />
-          </Route>
-        </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  useQueryParamsStoreInit();
+  const element = useRoutes(routes);
+  return element;
 }
 
 export default App;

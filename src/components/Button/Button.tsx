@@ -17,21 +17,16 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={loading || disabled}
       className={classNames(
         styles.button,
-        { [styles.disabled]: disabled },
-        className,
-        { [styles.disabled]: loading }
+        { [styles.disabled]: disabled || loading },
+        className
       )}
     >
-      {
-        <>
-          {loading && (
-            <div className={styles.loader}>
-              <Loader size={LoaderSize.s} />
-            </div>
-          )}
-          {children}
-        </>
-      }
+      {loading && (
+        <div className={styles.loader}>
+          <Loader size={LoaderSize.s} />
+        </div>
+      )}
+      {children}
     </button>
   );
 };

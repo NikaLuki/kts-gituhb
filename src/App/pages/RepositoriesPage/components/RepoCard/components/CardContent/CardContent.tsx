@@ -4,11 +4,11 @@ import styles from "./CardContent.module.scss";
 
 type CardContentProps = {
   stars: string;
-  updated: string;
+  updated: Date;
 };
 
 const CardContent: React.FC<CardContentProps> = ({ stars, updated }) => {
-  const fromatDate = (date: string) => {
+  const fromatDate = (date: Date) => {
     const months = [
       "Jan",
       "Feb",
@@ -22,8 +22,8 @@ const CardContent: React.FC<CardContentProps> = ({ stars, updated }) => {
       "Nov",
       "Dec",
     ];
-    const newDate = new Date(Date.parse(date));
-    const result = newDate.getDate() + " " + months[newDate.getMonth()];
+
+    const result = date.getDate() + " " + months[date.getMonth()];
     return result;
   };
 

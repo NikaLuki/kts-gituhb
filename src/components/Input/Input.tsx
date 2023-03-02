@@ -23,6 +23,7 @@ export const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <input
+      {...props}
       value={value}
       onChange={(v) => onChange(v.target.value)}
       type="text"
@@ -32,7 +33,6 @@ export const Input: React.FC<InputProps> = ({
         { [styles.disabled]: disabled },
         className
       )}
-      {...props}
     />
   );
 };
