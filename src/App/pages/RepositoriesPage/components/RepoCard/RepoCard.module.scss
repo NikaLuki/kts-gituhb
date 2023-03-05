@@ -1,0 +1,68 @@
+  .card {
+    margin: 8px 0 0; 
+    box-sizing: border-box;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    width: 100%;
+    min-width: 357px;
+    height: 104px;
+    background: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    &:hover{
+        cursor: pointer;
+    }
+  }
+  .image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 12px;
+  }
+  .title {
+    height: 19px;
+    margin-bottom: 4px;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+  }
+  
+  .subtitle {
+    margin: 0;
+    margin-bottom: 4px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+  
+    color: #7e7e7e;
+  }
+  .subtitle a {
+    text-decoration: none;
+    color: #7e7e7e;
+  }
+  .body {
+    display: inline-flex;
+    width: 100%;
+    max-width: 241px;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+  
+  .content span {
+    display: flex;
+    justify-content: space-between;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+  
+    color: #7e7e7e;
+  }
+  
