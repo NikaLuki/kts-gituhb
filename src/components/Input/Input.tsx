@@ -11,7 +11,7 @@ type InputProps = Omit<
   /** Значение поля */
   value: string;
   /** Callback, вызываемый при вводе данных в поле */
-  onChange: (value: string) => void;
+  onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const Input: React.FC<InputProps> = ({
@@ -25,7 +25,7 @@ export const Input: React.FC<InputProps> = ({
     <input
       {...props}
       value={value}
-      onChange={(v) => onChange(v.target.value)}
+      onChange={(v) => onChange(v)}
       type="text"
       disabled={disabled}
       className={classNames(

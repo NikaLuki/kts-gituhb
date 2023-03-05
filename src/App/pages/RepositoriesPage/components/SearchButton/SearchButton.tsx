@@ -1,12 +1,13 @@
 import React from "react";
 
 import Button from "@components/Button";
+import { ButtonProps } from "@components/Button/Button";
 
 import styles from "./SearchButton.module.scss";
 
-const SearchButton = () => {
+const SearchButton: React.FC<ButtonProps> = (props) => {
   return (
-    <Button className={styles.search}>
+    <Button {...props} className={styles.search}>
       <svg
         width="18"
         height="18"

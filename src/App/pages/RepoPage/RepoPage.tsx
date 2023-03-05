@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import WithLoader from "@components/WithLoader";
-import GitHubStore from "@store/GitHubStore";
+import { RepoPageStore } from "@store/RepoPageStore/RepoPageStore";
 import { Meta } from "@utils/meta";
 import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
@@ -13,28 +13,28 @@ import TopicList from "./components/TopicList";
 import style from "./RepoPage.module.scss";
 
 const RepoPage = () => {
-  const gitHubStore = useLocalStore(() => new GitHubStore());
+  const repoPageStore = useLocalStore(() => new RepoPageStore());
   const { name, owner } = useParams();
 
   useEffect(() => {
     if (name && owner) {
-      gitHubStore.GetCurrentRepo({ org: owner, id: name });
+      repoPageStore.getCurrentRepo({ org: owner, id: name });
     }
-  }, [name, owner, gitHubStore]);
+  }, [name, owner, repoPageStore]);
 
   return (
-    <WithLoader loading={gitHubStore.metaCurrent === Meta.loading}>
-      {gitHubStore.currentRepo && (
+    <WithLoader loading={repoPageStore.meta === Meta.loading}>
+      {repoPageStore.currentRepo && (
         <div className={style.wrapper}>
           <Header
-            name={gitHubStore.currentRepo.name}
-            owner={gitHubStore.currentRepo.owner.login}
+            name={repoPageStore.currentRepo.name}
+            owner={repoPageStore.currentRepo.owner.login}
           />
-          {gitHubStore.currentRepo.homepage && (
-            <HomePage homepage={gitHubStore.currentRepo.homepage} />
+          {repoPageStore.currentRepo.homepage && (
+            <HomePage homepage={repoPageStore.currentRepo.homepage} />
           )}
-          {gitHubStore.currentRepo.topics.length > 0 && (
-            <TopicList topics={[...gitHubStore.currentRepo.topics]} />
+          {repoPageStore.currentRepo.topics.length > 0 && (
+            <TopicList topics={[...repoPageStore.currentRepo.topics]} />
           )}
           <div className={style.items}>
             <div className={style.item}>
@@ -52,7 +52,7 @@ const RepoPage = () => {
                   fill="#646769"
                 />
               </svg>
-              <p>{gitHubStore.currentRepo.stargazersCount + " stars"}</p>
+              <p>{repoPageStore.currentRepo.stargazersCount + " stars"}</p>
             </div>
             <div className={style.item}>
               <svg
@@ -74,7 +74,7 @@ const RepoPage = () => {
                   fill="#646769"
                 />
               </svg>
-              <p>{gitHubStore.currentRepo.watchersCount + " watching"}</p>
+              <p>{repoPageStore.currentRepo.watchersCount + " watching"}</p>
             </div>
             <div className={style.item}>
               <svg
@@ -89,13 +89,13 @@ const RepoPage = () => {
                   fill="#646769"
                 />
               </svg>
-              <p>{gitHubStore.currentRepo.forksCount + " fork"}</p>
+              <p>{repoPageStore.currentRepo.forksCount + " fork"}</p>
             </div>
-            {gitHubStore.currentRepo.readme && (
+            {repoPageStore.currentRepo.readme && (
               <div
                 className={style.readme}
                 dangerouslySetInnerHTML={{
-                  __html: gitHubStore.currentRepo.readme,
+                  __html: repoPageStore.currentRepo.readme,
                 }}
               ></div>
             )}

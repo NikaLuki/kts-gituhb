@@ -1,6 +1,8 @@
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import qs from "qs";
+
 type PrivateFields = "_params";
+
 export default class QueryParamsStore {
   private _params: qs.ParsedQs = {};
   private _search: string = "";
@@ -8,6 +10,7 @@ export default class QueryParamsStore {
   constructor() {
     makeObservable<QueryParamsStore, PrivateFields>(this, {
       _params: observable.ref,
+      setSeacrh: action,
     });
   }
 

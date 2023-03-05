@@ -90,6 +90,7 @@
             display: flex;
             width: 100%;
             flex-wrap: wrap;
+            white-space: break-spaces;
             span{
                 white-space: break-spaces;
             }
@@ -97,22 +98,23 @@
         div{
             width: 100%;
         }
+        a{
+            margin-left: 6px;
+            color: $blue-color;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 16px;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
         p {
             width: 100%;
             word-break:break-all;
             margin-top: 8px;
             margin-bottom: 8px;
-            a{
-                margin-left: 6px;
-                color: $blue-color;
-                text-decoration: none;
-                font-weight: 700;
-                font-size: 14px;
-                line-height: 16px;
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
+           
         }
         h1{
             font-weight: 700;

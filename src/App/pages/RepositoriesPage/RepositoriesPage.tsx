@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import Input from "@components/Input";
 import MultiDropdown from "@components/MultiDropdown";
 import { Option } from "@components/MultiDropdown/MultiDropdown";
 import WithLoader from "@components/WithLoader";
-import GitHubStore from "@store/GitHubStore";
+import RepoListPageStore from "@store/RepoListPageStore";
 import { Meta } from "@utils/meta";
 import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 import RepoList from "./components/RepoList";
 import SearchButton from "./components/SearchButton";
@@ -19,22 +20,36 @@ const options = [
 ];
 
 const RepositoriesPage = () => {
-  const gitHubStore = useLocalStore(() => new GitHubStore());
+  const navigate = useNavigate();
+  const reposPageStore = useLocalStore(() => new RepoListPageStore());
   const defaultPluralizeOptions = (elements: Option[]) =>
     elements.map((el: Option) => el.key).join();
 
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => reposPageStore.setValue(e),
+    [reposPageStore]
+  );
+  const newOrg = reposPageStore.value;
   useEffect(() => {
-    gitHubStore.GetOrganizationReposList({ org: "ktsstudio" });
-  }, [gitHubStore]);
+    reposPageStore.getReposList();
+  }, [reposPageStore]);
+
+  const handleClick = () => {
+    const options = {
+      search: `?${createSearchParams({ org: newOrg })}`,
+    };
+    navigate(options);
+  };
+
   return (
     <>
       <div className={style.search}>
         <Input
-          onChange={() => " "}
-          value=""
+          onChange={handleChange}
+          value={newOrg}
           placeholder="Enter organization name"
         />
-        <SearchButton />
+        <SearchButton onClick={handleClick} />
       </div>
       <div className={style.search}>
         <p className={style.title}>Repositories</p>
@@ -46,9 +61,10 @@ const RepositoriesPage = () => {
           placeholder="Type"
         />
       </div>
-      <WithLoader loading={gitHubStore.metaList === Meta.loading}>
-        {gitHubStore.metaList === Meta.success && (
-          <RepoList repositories={gitHubStore.repoList} />
+
+      <WithLoader loading={reposPageStore.meta === Meta.loading}>
+        {reposPageStore.meta === Meta.success && (
+          <RepoList repositories={reposPageStore.list} />
         )}
       </WithLoader>
     </>
